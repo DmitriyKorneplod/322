@@ -24,10 +24,10 @@ namespace Dentistry.Pages
             string password = form["password"];
 
             var db = new dadyContext();
-            Client? user = db.Clients.FirstOrDefault(p => p.LoginUser == login && p.PasswordUser);
-            if(user is null)return Unauthorized();
+            Administrato? administarto = db.Administratos.FirstOrDefault(p => p.login == login && p.password);
+            if(administarto is null)return Unauthorized();
  
-            var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.LoginUser) };
+            var claims = new List<Claim> { new Claim(ClaimTypes.Name, ) };
             // создаем объект ClaimsIdentity
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");
             // установка аутентификационных куки
