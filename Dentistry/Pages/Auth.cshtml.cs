@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System;
 using System.Diagnostics.Eventing.Reader;
 using Dentistry.Models;
+using Org.BouncyCastle.Asn1.X509.SigI;
 
 namespace Dentistry.Pages
 {
@@ -15,19 +16,19 @@ namespace Dentistry.Pages
         }
         public IActionResult OnPost()
         {
-            var form = Request.Form;
+            var form = HttpContext.Request.Form;
             // если email и/или пароль не установлены, посылаем статусный код ошибки 400
-            if (!form.ContainsKey("email") || !form.ContainsKey("password"))
-            return BadRequest("Email и/или пароль не установлены");
+            if (!form.ContainsKey("login") || !form.ContainsKey("password"))
+            return BadRequest("Логин и/или пароль не установлены");
  
             string login = form["login"];
             string password = form["password"];
 
             var db = new dadyContext();
-            Administrato? administarto = db.Administratos.FirstOrDefault(p => p.Login == login && p.Password);
-            if(administarto is null)return Unauthorized();
- 
-            var claims = new List<Claim> { new Claim(ClaimTypes.Name, ) };
+            Administrato? administrato = db.Administratos.FirstOrDefault(p => p.Login == login && p.Password == password);
+            if(administrato is null)return Unauthorized();
+
+            var claims = new List<Claim> { new Claim(ClaimTypes.Name,administrato.Login) };
             // создаем объект ClaimsIdentity
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");
             // установка аутентификационных куки
