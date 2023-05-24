@@ -8,7 +8,7 @@ using Dentistry.Models;
 
 namespace Dentistry.Pages
 {
-    public class AuthModel : PageModel
+    public class AuthModel : BasePageModel
     {
         public void OnGet()
         {
@@ -24,7 +24,7 @@ namespace Dentistry.Pages
             string password = form["password"];
 
             var db = new dadyContext();
-            Administrato? administarto = db.Administratos.FirstOrDefault(p => p.login == login && p.password);
+            Administrato? administarto = db.Administratos.FirstOrDefault(p => p.Login == login && p.Password);
             if(administarto is null)return Unauthorized();
  
             var claims = new List<Claim> { new Claim(ClaimTypes.Name, ) };

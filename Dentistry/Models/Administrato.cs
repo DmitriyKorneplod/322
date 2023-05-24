@@ -10,7 +10,7 @@ namespace Dentistry.Models
             Records = new HashSet<Record>();
         }
 
-        public int Id { get; set; }
+        public int id { get; set; }
         public string Fio { get; set; } = null!;
         public string Password { get; set; } = null!;
         public string Login { get; set; } = null!;

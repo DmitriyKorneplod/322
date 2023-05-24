@@ -42,7 +42,7 @@ namespace Dentistry.Models
                 entity.HasIndex(e => e.Login, "login_UNIQUE")
                     .IsUnique();
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.id).HasColumnName("id");
 
                 entity.Property(e => e.Fio)
                     .HasMaxLength(255)
